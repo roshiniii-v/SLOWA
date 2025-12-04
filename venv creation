@@ -1,2 +1,7 @@
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
+langchain
+langgraph
+langchain-community
+faiss-cpu
+chromadb
+pydantic>=2
+pyyaml
