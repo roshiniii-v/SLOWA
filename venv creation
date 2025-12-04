@@ -1,7 +1,16 @@
-langchain
-langgraph
-langchain-community
-faiss-cpu
-chromadb
-pydantic>=2
-pyyaml
+slos:
+  - service: checkout-api
+    slo_name: availability
+    objective: 99.9
+    window: 30d
+    metric: "availability_rate"
+    threshold_type: "min"   # higher is good, alert if trending down
+    alert_before_violation_minutes: 60
+ 
+  - service: checkout-api
+    slo_name: latency
+    objective: 300          # ms p95
+    window: 1h
+    metric: "latency_p95_ms"
+    threshold_type: "max"   # lower is good, alert if trending up
+    alert_before_violation_minutes: 30
