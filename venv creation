@@ -1,16 +1,11 @@
-{
-  "services": [
-    {
-      "name": "checkout-api",
-      "depends_on": ["user-service", "payments-service"]
-    },
-    {
-      "name": "payments-service",
-      "depends_on": ["bank-gateway"]
-    },
-    {
-      "name": "user-service",
-      "depends_on": ["database"]
-    }
-  ]
-}
+timestamp,service,metric_name,value
+2025-11-28T10:00:00Z,checkout-api,latency_p95_ms,230
+2025-11-28T10:01:00Z,checkout-api,latency_p95_ms,240
+2025-11-28T10:02:00Z,checkout-api,latency_p95_ms,250
+2025-11-28T10:03:00Z,checkout-api,latency_p95_ms,260
+2025-11-28T10:04:00Z,checkout-api,latency_p95_ms,270
+2025-11-28T10:05:00Z,checkout-api,latency_p95_ms,280
+2025-11-28T10:06:00Z,checkout-api,latency_p95_ms,290
+2025-11-28T10:07:00Z,checkout-api,latency_p95_ms,310
+2025-11-28T10:08:00Z,checkout-api,latency_p95_ms,330
+2025-11-28T10:09:00Z,checkout-api,latency_p95_ms,350
