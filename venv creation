@@ -1,11 +1,47 @@
-timestamp,service,metric_name,value
-2025-11-28T10:00:00Z,checkout-api,latency_p95_ms,230
-2025-11-28T10:01:00Z,checkout-api,latency_p95_ms,240
-2025-11-28T10:02:00Z,checkout-api,latency_p95_ms,250
-2025-11-28T10:03:00Z,checkout-api,latency_p95_ms,260
-2025-11-28T10:04:00Z,checkout-api,latency_p95_ms,270
-2025-11-28T10:05:00Z,checkout-api,latency_p95_ms,280
-2025-11-28T10:06:00Z,checkout-api,latency_p95_ms,290
-2025-11-28T10:07:00Z,checkout-api,latency_p95_ms,310
-2025-11-28T10:08:00Z,checkout-api,latency_p95_ms,330
-2025-11-28T10:09:00Z,checkout-api,latency_p95_ms,350
+from typing import List, Dict, Optional
+from pydantic import BaseModel, Field
+ 
+ 
+class MetricPoint(BaseModel):
+    timestamp: str
+    service: str
+    metric_name: str
+    value: float
+ 
+ 
+class SLOTarget(BaseModel):
+    service: str
+    slo_name: str
+    objective: float
+    window: str
+    metric: str
+    threshold_type: str
+    alert_before_violation_minutes: int
+ 
+ 
+class SLOForecast(BaseModel):
+    service: str
+    slo_name: str
+    breach_probability: float
+    time_to_breach_minutes: Optional[float]
+    rationale: str
+ 
+ 
+class MitigationAction(BaseModel):
+    description: str
+    type: str
+    risks: List[str] = Field(default_factory=list)
+    requires_approval: bool = True
+ 
+ 
+class SLOWAState(BaseModel):
+    metrics: List[MetricPoint] = Field(default_factory=list)
+    slo_targets: List[SLOTarget] = Field(default_factory=list)
+    topology: Dict = Field(default_factory=dict)
+ 
+    drift_signals: Dict[str, float] = Field(default_factory=dict)
+    forecasts: List[SLOForecast] = Field(default_factory=list)
+    mitigations: List[MitigationAction] = Field(default_factory=list)
+ 
+    risk_score: Optional[float] = None
+    forecast_chart_path: Optional[str] = None
